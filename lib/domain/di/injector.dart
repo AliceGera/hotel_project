@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 
+import '../interactor/booking_interactor.dart';
 import '../interactor/hotel_interactor.dart';
 import '../interactor/room_interactor.dart';
 import '../repository/hotel_repository.dart';
@@ -14,6 +15,11 @@ Future<void> configureDomainDependencies() async {
   );
   getIt.registerLazySingleton<RoomInteractor>(
     () => RoomInteractor(
+      getIt.get<IGlobalRepository>(),
+    ),
+  );
+  getIt.registerLazySingleton<BookingInteractor>(
+        () => BookingInteractor(
       getIt.get<IGlobalRepository>(),
     ),
   );

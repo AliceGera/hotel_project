@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
+import '../../../domain/interactor/booking_interactor.dart';
 import '../../../widgets/information_widget_about_booking.dart';
 import '../paid/paid.dart';
+import 'bloc/booking_bloc.dart';
+import 'bloc/booking_event.dart';
+import 'bloc/booking_state.dart';
+import 'booking_view_mapper.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({Key? key}) : super(key: key);
@@ -51,35 +58,29 @@ class _BookingScreenState extends State<BookingScreen> {
         ),
       ),
     );
-    /*return BlocProvider(*/
-    /*create: (context) => PokemonScreenBloc(
-        GetIt.I.get<PokemonInteractor>(),
-        GetIt.I.get<PokemonViewMapper>(),
-      )..add(
-        LoadMorePokemonsScreenEvent(true),
-      ),*/
-    /*child: BlocBuilder<PokemonScreenBloc, PokemonScreenState>(
+    return BlocProvider(
+        create: (context) => BookingBloc(
+          GetIt.I.get<BookingInteractor>(),
+          GetIt.I.get<BookingViewMapper>(),
+        )..add(
+          LoadBookingEvent(),
+        ),
+        child: BlocBuilder<BookingBloc, BookingState>(
         builder: (context, state) {
-          if (state is PokemonScreenInitialState) {
-            setupScrollController(context);
-          }
-          if (state is PokemonScreenLoadingState || state is PokemonScreenInitialState) {
-            return const CircularProgressIndicatorWidget();
-          } else if (state is PokemonScreenFailedState) {
-            return FailedWidget(
-              tapCallBack: () {
-                BlocProvider.of<PokemonScreenBloc>(context).add(
-                  LoadMorePokemonsScreenEvent(true),
-                );
-              },
-              error: state.error,
-            );
-          } else if (state is PokemonScreenSuccessState) {*/
-    return SafeArea(
+      if (state is BookingLoadingState || state is BookingInitialState) {
+        return Container(
+          child: Text('load'),
+        );
+      } else if (state is BookingFailedState) {
+        return Container(
+          child: Text('load'),
+        );
+      } else if (state is BookingSuccessState) {
+        return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back_ios,
               color: Colors.black,
             ),
@@ -132,27 +133,27 @@ class _BookingScreenState extends State<BookingScreen> {
                                       'assets/images/star.png',
                                       height: 15,
                                     ),
-                                    const Text(
-                                      '5 Превосходно',
-                                      style: TextStyle(
+                                     Text(
+                                      '${state.data.horating} Превосходно',
+                                      style: const TextStyle(
                                         color: Color(0xFFFFA800),
                                       ),
                                     ),
                                   ],
                                 ),
                               )),
-                          const Text(
-                            'Steigenberger Makadi',
-                            style: TextStyle(
+                           Text(
+                             state.data.hotelName,
+                            style: const TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 22,
                             ),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 8, bottom: 16),
+                           Padding(
+                            padding: const EdgeInsets.only(top: 8, bottom: 16),
                             child: Text(
-                              'Madinat Makadi, Safaga Road, Makadi Bay, Египет',
-                              style: TextStyle(
+                              state.data.hotelAdress,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14,
                                 color: Color(0xFF0D72FF),
@@ -171,15 +172,15 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child:  const Column(
+                      child:   Column(
                         children: [
-                          InformationWidgetAboutBooking(firstText: 'Вылет из', secondText: 'Санкт-Петербург'),
-                          InformationWidgetAboutBooking(firstText: 'Страна, город', secondText: 'Египет, Хургада'),
-                          InformationWidgetAboutBooking(firstText: 'Даты', secondText: '19.09.2023 – 27.09.2023'),
-                          InformationWidgetAboutBooking(firstText: 'Кол-во ночей', secondText: '7 ночей'),
-                          InformationWidgetAboutBooking(firstText: 'Отель', secondText: 'Steigenberger Makadi'),
-                          InformationWidgetAboutBooking(firstText: 'Номер', secondText: 'Стандартный с видом на бассейн или сад'),
-                          InformationWidgetAboutBooking(firstText: 'Питание', secondText: 'Все включено'),
+                          InformationWidgetAboutBooking(firstText: 'Вылет из', secondText: state.data.departure),
+                          InformationWidgetAboutBooking(firstText: 'Страна, город', secondText: state.data.arrivalCountry),
+                          InformationWidgetAboutBooking(firstText: 'Даты', secondText: "${state.data.tourDateStart} - ${state.data.tourDateStop}"),
+                          InformationWidgetAboutBooking(firstText: 'Кол-во ночей', secondText: "${state.data.numberOfNights}"),
+                          InformationWidgetAboutBooking(firstText: 'Отель', secondText: state.data.hotelName),
+                          InformationWidgetAboutBooking(firstText: 'Номер', secondText:  state.data.room),
+                          InformationWidgetAboutBooking(firstText: 'Питание', secondText: state.data.nutrition),
                         ],
                       ),
                     ),
@@ -271,6 +272,11 @@ class _BookingScreenState extends State<BookingScreen> {
           ],
         ),
       ),
+    );
+      }
+      return const SizedBox();
+        },
+        ),
     );
   }
 }

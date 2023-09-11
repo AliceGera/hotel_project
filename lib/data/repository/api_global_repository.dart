@@ -1,11 +1,13 @@
 import 'package:hotel/data/mapper/global_mapper.dart';
 
+import '../../domain/model/booking_data.dart';
 import '../../domain/model/hotel_data.dart';
 import '../../domain/model/room_data.dart';
 import '../../domain/repository/hotel_repository.dart';
 import '../api/api_client.dart';
 import '../model/api_hotel_response.dart';
 import '../model/api_room_response.dart';
+import '../model/api_booking_response.dart';
 
 class ApiGlobalRepository implements IGlobalRepository {
   final HttpRequestExecutor httpRequestExecutor;
@@ -40,5 +42,18 @@ class ApiGlobalRepository implements IGlobalRepository {
     final mappedRoomList = rooms?.map((e) => ApiRoomResponse.fromJson(e)).toList();
     final roomData = globalMapper.toListRoomData(mappedRoomList!); //List RoomData
     return roomData; //List RoomData
+  }
+
+  @override
+  Future<BookingData> getBooking() async {
+    final response = await httpRequestExecutor.executeRequest(
+      HttpMethod.get,
+      Uri.parse("https://run.mocky.io/v3/e8868481-743f-4eb2-a0d7-2bc4012275c8"),
+      null,
+    );
+
+    final mappedResponse = ApiBookingResponse.fromJson(response);
+    final bookingData = globalMapper.toBookingData(mappedResponse);
+    return bookingData;
   }
 }
