@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel/presentation/screens/booking/bloc/tourist.dart';
 import '../../../../domain/interactor/booking_interactor.dart';
 import '../booking_screen_data.dart';
 import '../booking_view_mapper.dart';
@@ -11,9 +12,9 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   final BookingViewMapper viewMapper;
 
   BookingBloc(
-      this.interactor,
-      this.viewMapper,
-      ) : super(BookingInitialState()) {
+    this.interactor,
+    this.viewMapper,
+  ) : super(BookingInitialState()) {
     on<LoadBookingEvent>((event, emit) async {
       emit(BookingLoadingState());
       try {
@@ -22,6 +23,20 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
           screenData,
           data,
         );
+        emit(BookingSuccessState(screenData));
+      } catch (error) {
+        emit(BookingFailedState(error.toString()));
+      }
+    });
+
+    on<AddTouristEvent>((event, emit) async {
+      emit(BookingLoadingState());
+
+      try {
+        final newListTourists = [
+          ...screenData.tourists,
+          Tourist.init(),
+        ];
         screenData = BookingScreenData(
           screenData.hotelName ?? '',
           screenData.hotelAdress ?? '',
@@ -37,6 +52,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
           screenData.tourPrice ?? 0,
           screenData.fuelCharge ?? 0,
           screenData.serviceCharge ?? 0,
+          newListTourists,
         );
         emit(BookingSuccessState(screenData));
       } catch (error) {

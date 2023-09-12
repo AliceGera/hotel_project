@@ -7,6 +7,7 @@ import 'package:hotel/presentation/screens/hotel/widgets/hotel_images.dart';
 import 'package:hotel/presentation/screens/hotel/widgets/information_widget.dart';
 
 import '../../../domain/interactor/hotel_interactor.dart';
+import '../../widgets/load_more_indicator_widget.dart';
 import 'bloc/hotel_bloc.dart';
 import 'hotel_view_mapper.dart';
 
@@ -47,9 +48,7 @@ class _HotelScreenState extends State<HotelScreen> {
       child: BlocBuilder<HotelBloc, HotelState>(
         builder: (context, state) {
           if (state is HotelLoadingState || state is HotelInitialState) {
-            return Container(
-              child: Text('load'),
-            );
+            return const CircularProgressIndicatorWidget();
           } else if (state is HotelFailedState) {
             return Container(
               child: Text('load'),
@@ -163,8 +162,9 @@ class _HotelScreenState extends State<HotelScreen> {
                                                   InformationWidget(
                                                     icon: e,
                                                     text: text[index],
+                                                      index:index,
                                                   ),
-                                                  const SizedBox(height: 10),
+                                                  //const SizedBox(height: 10),
                                                 ],
                                               ),
                                             ),

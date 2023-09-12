@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hotel/presentation/screens/hotel/hotel.dart';
+import 'package:hotel/presentation/screens/hotel/hotel_screen.dart';
 
 import 'di/injector.dart';
 

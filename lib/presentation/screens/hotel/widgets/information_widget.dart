@@ -7,18 +7,20 @@ class InformationWidget extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.text,
+    required this.index,
   }) : super(key: key);
 
   //final List<String> hotelImages;
   final String icon;
   final String text;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
           SvgPicture.asset('assets/images/$icon'),
@@ -56,6 +58,7 @@ class InformationWidget extends StatelessWidget {
                     ),
                   ],
                 ),
+                if(index!=2)
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(

@@ -1,3 +1,5 @@
+import 'package:hotel/presentation/screens/booking/bloc/tourist.dart';
+
 class BookingScreenData {
   String hotelName;
   String hotelAdress;
@@ -13,6 +15,7 @@ class BookingScreenData {
   int tourPrice;
   int fuelCharge;
   int serviceCharge;
+  List<Tourist> tourists;
 
   BookingScreenData(
     this.hotelName,
@@ -29,6 +32,7 @@ class BookingScreenData {
     this.tourPrice,
     this.fuelCharge,
     this.serviceCharge,
+    this.tourists,
   );
 
   static BookingScreenData init() => BookingScreenData(
@@ -46,5 +50,8 @@ class BookingScreenData {
         0,
         0,
         0,
+        [
+          Tourist.init(),
+        ],
       );
 }

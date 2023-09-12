@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../room/room_screen.dart';
+import '../../paid/paid.dart';
 
-class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({
+class ButtonBookingWidget extends StatelessWidget {
+  const ButtonBookingWidget({
     Key? key,
     required this.text,
 
@@ -33,7 +33,7 @@ class ButtonWidget extends StatelessWidget {
             }),
           ),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const RoomScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PaidScreen()));
           },
           child:  Padding(
             padding: const EdgeInsets.symmetric(vertical: 15),

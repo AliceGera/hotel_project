@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../hotel/hotel.dart';
+
+import '../hotel/hotel_screen.dart';
+
 
 class PaidScreen extends StatelessWidget {
   const PaidScreen({Key? key}) : super(key: key);

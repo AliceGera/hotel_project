@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../booking/booking.dart';
+
 import '../../hotel/widgets/button_widget.dart';
 import 'buttonChooseRoom.dart';
 
@@ -170,6 +170,7 @@ class RoomWidget extends StatelessWidget {
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 30,
+                      height: 1,
                     ),
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hotel/presentation/screens/room/room_view_mapper.dart';
 import 'package:hotel/presentation/screens/room/widgets/room_widget.dart';
 import '../../../domain/interactor/room_interactor.dart';
+import '../../widgets/load_more_indicator_widget.dart';
 import 'bloc/room_bloc.dart';
 import 'bloc/room_state.dart';
 import 'bloc/room_event.dart';
@@ -46,9 +47,7 @@ class _RoomScreenState extends State<RoomScreen> {
       child: BlocBuilder<RoomBloc, RoomState>(
         builder: (context, state) {
           if (state is RoomLoadingState || state is RoomInitialState) {
-            return Container(
-              child: Text('load'),
-            );
+            return const CircularProgressIndicatorWidget();
           } else if (state is RoomFailedState) {
             return Container(
               child: Text('load'),
