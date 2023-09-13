@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel/presentation/screens/booking/bloc/tourist.dart';
 import '../../../../domain/interactor/booking_interactor.dart';
 import '../booking_screen_data.dart';
 import '../booking_view_mapper.dart';
+import '../tourist_screen_data.dart';
 import 'booking_event.dart';
 import 'booking_state.dart';
 
@@ -18,11 +20,11 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<LoadBookingEvent>((event, emit) async {
       emit(BookingLoadingState());
       try {
-        final data = await interactor.getBooking();
+        /* final data = await interactor.getBooking();
         screenData = viewMapper.toScreenData(
           screenData,
           data,
-        );
+        );*/
         emit(BookingSuccessState(screenData));
       } catch (error) {
         emit(BookingFailedState(error.toString()));
@@ -54,6 +56,30 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
           screenData.serviceCharge ?? 0,
           newListTourists,
         );
+        emit(BookingSuccessState(screenData));
+      } catch (error) {
+        emit(BookingFailedState(error.toString()));
+      }
+    });
+
+    on<AddUpdateFieldsEvent>((event, emit) async {
+      emit(BookingLoadingState());
+      try {
+        screenData.tourists[event.touristIndex] = screenData.tourists[event.touristIndex].copy(
+          name: event.name,
+          lastName: event.lastName,
+          birthday:  event.birthday,
+          nationality:  event.nationality,
+          passportNumber:   event.passportNumber,
+          passportValidityPeriod:  event.passportValidityPeriod,
+          errorName:  event.errorName,
+          errorLastName:  event.errorLastName,
+          errorBirthday:   event.errorBirthday,
+          errorNationality:  event.errorNationality,
+          errorPassportNumber:  event.errorPassportNumber,
+          errorPassportValidityPeriod:  event.errorPassportValidityPeriod,
+        );
+
         emit(BookingSuccessState(screenData));
       } catch (error) {
         emit(BookingFailedState(error.toString()));

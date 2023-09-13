@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel/presentation/extension/string_extension.dart';
 
 class BasicDataWidget extends StatelessWidget {
   const BasicDataWidget({
@@ -20,8 +21,6 @@ class BasicDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,7 +72,7 @@ class BasicDataWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'от $minimalPrice ₽',
+              'от ${minimalPrice.toString().spaceSeparateNumbers()} ₽',
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 30,

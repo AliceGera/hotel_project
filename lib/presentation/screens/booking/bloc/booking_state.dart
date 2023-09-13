@@ -1,7 +1,4 @@
-
-
 import '../booking_screen_data.dart';
-
 abstract class BookingState {}
 
 class BookingInitialState extends BookingState {}

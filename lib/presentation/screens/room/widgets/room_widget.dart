@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel/presentation/extension/string_extension.dart';
+import 'package:hotel/presentation/screens/room/widgets/button_choose_room.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-
-import '../../hotel/widgets/button_widget.dart';
-import 'buttonChooseRoom.dart';
 
 class RoomWidget extends StatelessWidget {
   const RoomWidget({
@@ -27,7 +24,6 @@ class RoomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final controllerRoom = PageController(keepPage: true);
 
-    final size = MediaQuery.of(context).size;
     final pages = List.generate(
       roomImages.length,
       (index) => Container(
@@ -39,9 +35,15 @@ class RoomWidget extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 1),
         child: AspectRatio(
           aspectRatio: 343 / 257,
-          child: Image.network(
-            roomImages[index],
-            fit: BoxFit.fill,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20), // Image border
+            child: SizedBox.fromSize(
+              size: Size.fromRadius(12), // Image radius
+              child:  Image.network(
+                roomImages[index],
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
         ),
       ),
@@ -119,7 +121,7 @@ class RoomWidget extends StatelessWidget {
             children: <Widget>[
               for (int i = 0; i < peculiarities.length; i++)
                 Chip(
-                  backgroundColor: Color(0xFFFBFBFC),
+                  backgroundColor: const Color(0xFFFBFBFC),
                   label: Text(
                     peculiarities[i],
                     style: const TextStyle(
@@ -166,7 +168,7 @@ class RoomWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: Text(
-                    "$price ₽",
+                    "${price.toString().spaceSeparateNumbers()} ₽",
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 30,

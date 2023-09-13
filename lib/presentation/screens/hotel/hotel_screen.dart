@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hotel/presentation/screens/hotel/widgets/basic_data_widget.dart';
 import 'package:hotel/presentation/screens/hotel/widgets/button_widget.dart';
-import 'package:hotel/presentation/screens/hotel/widgets/hotel_images.dart';
+import 'package:hotel/presentation/screens/hotel/widgets/hotel_images_widget.dart';
 import 'package:hotel/presentation/screens/hotel/widgets/information_widget.dart';
 
 import '../../../domain/interactor/hotel_interactor.dart';
@@ -21,7 +21,6 @@ class HotelScreen extends StatefulWidget {
 }
 
 class _HotelScreenState extends State<HotelScreen> {
-
   List<String> text = [
     'Удобства',
     'Что включено',
@@ -42,16 +41,14 @@ class _HotelScreenState extends State<HotelScreen> {
       create: (context) => HotelBloc(
         GetIt.I.get<HotelInteractor>(),
         GetIt.I.get<HotelViewMapper>(),
-      )..add(
-          LoadHotelEvent(),
-        ),
+      )..add(LoadHotelEvent()),
       child: BlocBuilder<HotelBloc, HotelState>(
         builder: (context, state) {
           if (state is HotelLoadingState || state is HotelInitialState) {
             return const CircularProgressIndicatorWidget();
           } else if (state is HotelFailedState) {
-            return Container(
-              child: Text('load'),
+            return const Center(
+              child: Text('Failed load'),
             );
           } else if (state is HotelSuccessState) {
             return SafeArea(
@@ -162,7 +159,7 @@ class _HotelScreenState extends State<HotelScreen> {
                                                   InformationWidget(
                                                     icon: e,
                                                     text: text[index],
-                                                      index:index,
+                                                    index: index,
                                                   ),
                                                   //const SizedBox(height: 10),
                                                 ],

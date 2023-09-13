@@ -1,4 +1,4 @@
-import 'package:hotel/presentation/screens/booking/bloc/tourist.dart';
+import 'package:hotel/presentation/screens/booking/tourist_screen_data.dart';
 
 class BookingScreenData {
   String hotelName;
@@ -36,20 +36,20 @@ class BookingScreenData {
   );
 
   static BookingScreenData init() => BookingScreenData(
-        '',
-        '',
-        0,
-        '',
-        '',
-        '',
-        '',
-        '',
-        0,
-        '',
-        '',
-        0,
-        0,
-        0,
+        'Atlantis The Royal',
+        'Crescent Road Palm Jumeirah, Пальма Джумейра, Дубай, ОАЭ ',
+        5,
+        'Санкт-Петербург',
+        'Санкт-Петербург',
+        'ОАЭ, Дубай',
+        '19.09.2023',
+        '27.09.2023',
+        7,
+        'Стандартный номер с кроватью размера «king-size» и видом на море',
+        'Все включено',
+    534595,
+    12334,
+        3400,
         [
           Tourist.init(),
         ],

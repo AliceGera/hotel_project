@@ -19,11 +19,11 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     on<LoadRoomEvent>((event, emit) async {
       emit(RoomLoadingState());
       try {
-        final data = await interactor.getRooms();
+        /*final data = await interactor.getRooms();
         screenData = viewMapper.toScreenData(
           screenData,
           data,
-        );
+        );*/
 
         emit(RoomSuccessState(screenData));
       } catch (error) {

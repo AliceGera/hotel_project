@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hotel/presentation/screens/hotel/hotel_screen.dart';
-
 import 'di/injector.dart';
 
 Future<void> main() async {
@@ -17,12 +16,11 @@ class MyApp extends StatelessWidget {
       title: 'Localizations Sample App',
      // localizationsDelegates: AppLocalizations.localizationsDelegates,
      // supportedLocales: AppLocalizations.supportedLocales,
-      theme: ThemeData(primaryColor: Colors.amber),
+      theme: ThemeData(fontFamily: 'SFProDisplay'),
       initialRoute: HotelScreen.routeName,
       routes: {
         HotelScreen.routeName: (context) =>  const HotelScreen(),
-       // InformationAboutPokemonScreen.routeName :(context) => const InformationAboutPokemonScreen(),
-      },
+       },
     );
   }
 }

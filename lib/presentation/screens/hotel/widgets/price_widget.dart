@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel/presentation/extension/string_extension.dart';
 
 class PriceWidget extends StatelessWidget {
   const PriceWidget({
@@ -12,8 +13,6 @@ class PriceWidget extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -27,7 +26,7 @@ class PriceWidget extends StatelessWidget {
             ),
           ),
           Text(
-            textPrice,
+            textPrice.toString().spaceSeparateNumbers(),
             style:  TextStyle(
               color: color,
               fontSize: 16,

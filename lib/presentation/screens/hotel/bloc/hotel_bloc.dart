@@ -19,22 +19,11 @@ class HotelBloc extends Bloc<HotelEvent, HotelState> {
     on<LoadHotelEvent>((event, emit) async {
       emit(HotelLoadingState());
       try {
-        final data = await interactor.getHotel();
-        screenData = viewMapper.toScreenData(
-          screenData,
-          data,
-        );
-        screenData = HotelScreenData(
-          screenData.name ?? '',
-          screenData.adress ?? '',
-          screenData.minimalPrice ?? 0,
-          screenData.priceForIt ?? '',
-          screenData.rating ?? 0,
-          screenData.ratingName ?? '',
-          screenData.imageUrls ?? [],
-          screenData.description ?? '',
-          screenData.peculiarities ?? [],
-        );
+        // final data = await interactor.getHotel();
+        // screenData = viewMapper.toScreenData(
+        //   screenData,
+        //   data,
+        // );
         emit(HotelSuccessState(screenData));
       } catch (error) {
         emit(HotelFailedState(error.toString()));

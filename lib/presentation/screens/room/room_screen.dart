@@ -32,25 +32,19 @@ class _RoomScreenState extends State<RoomScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (context) =>
-      RoomBloc(
+      create: (context) => RoomBloc(
         GetIt.I.get<RoomInteractor>(),
         GetIt.I.get<RoomViewMapper>(),
-      )
-        ..add(
-          LoadRoomEvent(),
-        ),
+      )..add(LoadRoomEvent()),
       child: BlocBuilder<RoomBloc, RoomState>(
         builder: (context, state) {
           if (state is RoomLoadingState || state is RoomInitialState) {
             return const CircularProgressIndicatorWidget();
           } else if (state is RoomFailedState) {
-            return Container(
-              child: Text('load'),
+            return const Center(
+              child: Text('Failed load'),
             );
           } else if (state is RoomSuccessState) {
             return SafeArea(
@@ -67,7 +61,7 @@ class _RoomScreenState extends State<RoomScreen> {
                   elevation: 0,
                   centerTitle: true,
                   title: const Text(
-                    'Steigenberger Makadi',
+                    'Atlantis The Royal',
                     style: TextStyle(
                       color: Colors.black,
                     ),
@@ -79,8 +73,7 @@ class _RoomScreenState extends State<RoomScreen> {
                     Expanded(
                       child: Container(
                         color: const Color(0xffF6F6F9),
-                        child:
-                        ListView.builder(
+                        child: ListView.builder(
                             itemCount: state.data.listRoomScreenData.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Column(
@@ -97,7 +90,7 @@ class _RoomScreenState extends State<RoomScreen> {
                                   SizedBox(height: size.height * .01),
                                 ],
                               );
-                                  }),
+                            }),
                       ),
                     ),
                   ],
